@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="Permissions-Policy" content="unload=(self)" />
+      <title>Doan Minh Duc – Game Developer</title>
+      <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      />
+      <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+      <style>
+         :root {
+            --bg: #0a0015;
+            --text: #e0f0ff;
+            --neon: #00ffea;
+            --neon-purple: #c300ff;
+            --card: rgba(20, 10, 40, 0.7);
+            --glow: 0 0 25px rgba(0, 255, 234, 0.6);
+            --glow-purple: 0 0 25px rgba(195, 0, 255, 0.5);
+         }
+
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+         }
+
+         body {
+            font-family: "Segoe UI", system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+               radial-gradient(
+                  circle at 10% 20%,
+                  rgba(0, 255, 234, 0.08) 0%,
+                  transparent 25%
+               ),
+               radial-gradient(
+                  circle at 90% 80%,
+                  rgba(195, 0, 255, 0.08) 0%,
+                  transparent 25%
+               );
+            background-attachment: fixed;
+         }
+
+         #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+            background: transparent;
+         }
+
+         .particle {
+            position: absolute;
+            background: var(--neon);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: float 15s infinite linear;
+         }
+
+         @keyframes float {
+            0% {
+               transform: translateY(100vh) scale(0.2);
+               opacity: 0;
+            }
+            10% {
+               opacity: 0.6;
+            }
+            90% {
+               opacity: 0.6;
+            }
+            100% {
+               transform: translateY(-100vh) scale(0.8);
+               opacity: 0;
+            }
+         }
+
+         .glitch {
+            position: relative;
+            color: var(--neon);
+            font-size: 4.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            animation: glitch-skew 3s infinite;
+         }
+
+         .glitch::before,
+         .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+         }
+
+         .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-purple);
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+         }
+
+         .glitch::after {
+            left: -2px;
+            text-shadow: 2px 0 var(--neon);
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch-anim2 3s infinite linear alternate-reverse;
+         }
+
+         @keyframes glitch-anim {
+            0% {
+               clip: rect(42px, 9999px, 44px, 0);
+               transform: skew(0.6deg);
+            }
+            5% {
+               clip: rect(17px, 9999px, 59px, 0);
+               transform: skew(0.4deg);
+            }
+            100% {
+               clip: rect(68px, 9999px, 11px, 0);
+               transform: skew(0.2deg);
+            }
+         }
+
+         @keyframes glitch-anim2 {
+            0% {
+               clip: rect(65px, 9999px, 100px, 0);
+            }
+         }
+
+         @keyframes glitch-skew {
+            0%,
+            100% {
+               transform: skew(0deg);
+            }
+            10%,
+            90% {
+               transform: skew(2deg);
+            }
+         }
+
+         header {
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(
+               135deg,
+               rgba(10, 0, 21, 0.95),
+               rgba(0, 0, 0, 0.9)
+            );
+         }
+
+         .hero-content {
+            max-width: 1000px;
+            padding: 0 20px;
+         }
+
+         .hero h1 {
+            font-size: 5.5rem;
+            margin-bottom: 1rem;
+         }
+
+         .subtitle {
+            font-size: 2rem;
+            color: #a0d0ff;
+            margin: 1.5rem 0 3rem;
+            letter-spacing: 3px;
+         }
+
+         .cta-btn {
+            padding: 16px 40px;
+            background: transparent;
+            border: 2px solid var(--neon);
+            color: var(--neon);
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 50px;
+            margin: 0 15px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+         }
+
+         .cta-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+               90deg,
+               transparent,
+               rgba(0, 255, 234, 0.3),
+               transparent
+            );
+            transition: 0.7s;
+         }
+
+         .cta-btn:hover::before {
+            left: 100%;
+         }
+
+         .cta-btn:hover {
+            background: var(--neon);
+            color: #000;
+            box-shadow: var(--glow);
+            transform: translateY(-5px);
+         }
+
+         section {
+            padding: 120px 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+         }
+
+         h2 {
+            font-size: 3.8rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--neon);
+            text-shadow: 0 0 20px rgba(0, 255, 234, 0.5);
+         }
+
+         .card {
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 234, 0.2);
+            border-radius: 20px;
+            padding: 35px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: perspective(1000px) rotateX(0) rotateY(0);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+         }
+
+         .card:hover {
+            transform: perspective(1000px) rotateX(8deg) rotateY(8deg)
+               translateY(-15px);
+            box-shadow: var(--glow), var(--glow-purple);
+            border-color: var(--neon);
+         }
+
+         .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+         }
+
+         .skill-icon {
+            font-size: 3.5rem;
+            color: var(--neon);
+            margin-bottom: 1.2rem;
+            text-shadow: 0 0 15px var(--neon);
+         }
+
+         .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 50px;
+         }
+
+         .project-media {
+            background: linear-gradient(45deg, #1a0033, #002633);
+            border-radius: 16px;
+            align-items: center;
+            color: #555;
+            font-size: 1.3rem;
+            overflow: hidden;
+         }
+
+         .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 315/560 = 56.25% cho tỷ lệ 16:9 */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+            border-radius: 16px;
+            margin: 0; /* loại bỏ margin thừa nếu cần */
+            box-shadow: 0 10px 30px rgba(0, 255, 234, 0.3); /* glow neon đẹp */
+         }
+
+         .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+         }
+
+         .project-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+         }
+
+         .card:hover .project-media img {
+            transform: scale(1.12);
+         }
+
+         .project-title {
+            font-size: 2.2rem;
+            color: var(--neon);
+            margin: 1.5rem 0 1rem;
+         }
+
+         .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            text-align: center;
+         }
+
+         .contact-item i {
+            font-size: 4rem;
+            color: var(--neon);
+            margin-bottom: 1.2rem;
+            transition: transform 0.4s;
+         }
+
+         .contact-item:hover i {
+            transform: scale(1.2) rotate(10deg);
+         }
+
+         footer {
+            text-align: center;
+            padding: 80px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid rgba(0, 255, 234, 0.2);
+         }
+
+         @media (max-width: 768px) {
+            .glitch {
+               font-size: 3.8rem;
+            }
+            .hero h1 {
+               font-size: 4rem;
+            }
+            section {
+               padding: 80px 15px;
+            }
+         }
+      </style>
+   </head>
+   <body>
+      <div id="particles"></div>
+
+      <header>
+         <div class="hero-content">
+            <h1 class="glitch" data-text="DOAN MINH DUC">DOAN MINH DUC</h1>
+            <p class="subtitle">UNITY GAME DEVELOPER • CYBERPUNK CREATOR</p>
+            <div>
+               <a
+                  href="https://senseiikuiku.itch.io"
+                  class="cta-btn"
+                  target="_blank"
+                  >PLAY MY GAMES</a
+               >
+               <a href="#contact" class="cta-btn">CONTACT ME</a>
+            </div>
+         </div>
+      </header>
+
+      <section id="about">
+         <h2>👾 About Me</h2>
+         <div class="card" style="max-width: 900px; margin: 0 auto">
+            <div
+               style="
+                  display: grid;
+                  grid-template-columns: 1fr 2fr;
+                  gap: 50px;
+                  align-items: center;
+               "
+            >
+               <div>
+                  <!-- Add your avatar here -->
+                  <div
+                     style="
+                        width: 280px;
+                        height: 280px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        border: 3px solid var(--neon);
+                        box-shadow: var(--glow);
+                        margin: 0 auto;
+                     "
+                  >
+                     <img
+                        src="https://media.craiyon.com/2025-10-17/pnmqrgQKSG2NdurXOaCYUg.webp"
+                        alt="Doan Minh Duc Avatar"
+                        style="width: 100%; height: 100%; object-fit: cover"
+                     />
+                  </div>
+               </div>
+               <div>
+                  <p style="font-size: 1.3rem">
+                     Hello! I'm <strong>Doan Minh Duc</strong>, an Information
+                     Technology student at Saigon University, Vietnam.
+                  </p>
+                  <p style="font-size: 1.3rem">
+                     Passionate about <strong>Game Development</strong> using
+                     <strong>Unity</strong>, with a strong focus on gameplay
+                     systems, AI, procedural generation, and immersive player
+                     experiences.
+                  </p>
+                  <div
+                     style="
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 12px;
+                        margin: 2rem 0;
+                     "
+                  >
+                     <span
+                        style="
+                           background: rgba(0, 255, 234, 0.15);
+                           color: var(--neon);
+                           padding: 10px 22px;
+                           border-radius: 30px;
+                           border: 1px solid var(--neon);
+                        "
+                        >Unity 2D/3D</span
+                     >
+                     <span
+                        style="
+                           background: rgba(195, 0, 255, 0.15);
+                           color: var(--neon-purple);
+                           padding: 10px 22px;
+                           border-radius: 30px;
+                           border: 1px solid var(--neon-purple);
+                        "
+                        >Game Design</span
+                     >
+                     <span
+                        style="
+                           background: rgba(0, 255, 234, 0.15);
+                           color: var(--neon);
+                           padding: 10px 22px;
+                           border-radius: 30px;
+                           border: 1px solid var(--neon);
+                        "
+                        >Procedural Gen</span
+                     >
+                     <span
+                        style="
+                           background: rgba(195, 0, 255, 0.15);
+                           color: var(--neon-purple);
+                           padding: 10px 22px;
+                           border-radius: 30px;
+                           border: 1px solid var(--neon-purple);
+                        "
+                        >ReactJS Web</span
+                     >
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section
+         id="skills"
+         style="background: linear-gradient(to bottom, #0a0015, #150025)"
+      >
+         <h2>⚡ Skills</h2>
+         <div class="skills-grid">
+            <div class="card">
+               <div class="skill-icon"><i class="fas fa-gamepad"></i></div>
+               <h3 style="color: var(--neon); text-align: center">
+                  Game Development
+               </h3>
+               <ul style="list-style: none; padding: 20px 0">
+                  <li>Unity Engine (2D & 3D)</li>
+                  <li>C# Scripting</li>
+                  <li>Game Design & Level Design</li>
+                  <li>AI (Finite State Machines, Behavior Trees)</li>
+                  <li>Physics & Procedural Generation</li>
+                  <li>UI/UX & Cutscenes (Timeline)</li>
+               </ul>
+            </div>
+
+            <div class="card">
+               <div class="skill-icon"><i class="fas fa-code"></i></div>
+               <h3 style="color: var(--neon); text-align: center">
+                  Programming
+               </h3>
+               <ul style="list-style: none; padding: 20px 0">
+                  <li>C# (Advanced)</li>
+                  <li>JavaScript / TypeScript</li>
+                  <li>Java</li>
+               </ul>
+            </div>
+
+            <div class="card">
+               <div class="skill-icon"><i class="fas fa-globe"></i></div>
+               <h3 style="color: var(--neon); text-align: center">
+                  Web Development
+               </h3>
+               <ul style="list-style: none; padding: 20px 0">
+                  <li>ReactJS</li>
+                  <li>Modern JavaScript</li>
+                  <li>Responsive Web Design</li>
+                  <li>E-commerce & Tourism Websites</li>
+               </ul>
+            </div>
+
+            <div class="card">
+               <div class="skill-icon"><i class="fas fa-tools"></i></div>
+               <h3 style="color: var(--neon); text-align: center">Tools</h3>
+               <ul style="list-style: none; padding: 20px 0">
+                  <li>Unity Editor & Asset Store</li>
+                  <li>VS Code</li>
+                  <li>Git & GitHub</li>
+                  <li>Blender (Basic Modeling)</li>
+                  <li>Mixamo (Animation)</li>
+               </ul>
+            </div>
+         </div>
+      </section>
+
+      <section id="projects">
+         <h2>🎮 Featured Projects</h2>
+         <div class="projects-grid">
+            <div class="card">
+               <div class="project-media">
+                  <div class="video-container">
+                     <iframe
+                        width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/IujKAT3VOos?si=L689F4t6h66aGq_6"
+                        title="HeroQuest Gameplay Demo"
+                        frameborder="0"
+                        allow="
+                           accelerometer;
+                           autoplay;
+                           clipboard-write;
+                           encrypted-media;
+                           gyroscope;
+                           picture-in-picture;
+                           web-share;
+                        "
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                     >
+                     </iframe>
+                  </div>
+               </div>
+               <div style="padding: 0 25px 30px">
+                  <h3 class="project-title">🏹 HeroQuest</h3>
+                  <p>2D Platformer Adventure – Unity 2D + C#</p>
+                  <a
+                     href="https://senseiikuiku.itch.io/heroquest"
+                     target="_blank"
+                     style="
+                        color: var(--neon);
+                        font-weight: bold;
+                        font-size: 1.2rem;
+                     "
+                     >PLAY NOW →</a
+                  >
+                  <ul style="margin: 1.5rem 0; list-style: none">
+                     <li>• Combat & Movement System</li>
+                     <li>• Enemy AI & Boss Fights</li>
+                     <li>• Shop, Upgrades, Timeline Cutscenes</li>
+                     <li>• LeanTween UI & Audio Manager</li>
+                  </ul>
+               </div>
+            </div>
+
+            <div class="card">
+               <div class="project-media">
+                  <div class="video-container">
+                     <iframe
+                        width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/lohmBo57hGU?si=5P249TUb9G-Zsv7Y"
+                        title="Rift & Ruin Gameplay Demo"
+                        frameborder="0"
+                        allow="
+                           accelerometer;
+                           autoplay;
+                           clipboard-write;
+                           encrypted-media;
+                           gyroscope;
+                           picture-in-picture;
+                           web-share;
+                        "
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                     >
+                     </iframe>
+                  </div>
+               </div>
+               <div style="padding: 0 25px 30px">
+                  <h3 class="project-title">🔫 Rift & Ruin</h3>
+                  <p>Post-Apocalyptic 3D Shooter – Unity 3D</p>
+                  <a
+                     href="https://senseiikuiku.itch.io/riftruin"
+                     target="_blank"
+                     style="
+                        color: var(--neon);
+                        font-weight: bold;
+                        font-size: 1.2rem;
+                     "
+                     >PLAY NOW →</a
+                  >
+                  <ul style="margin: 1.5rem 0; list-style: none">
+                     <li>• TPS / FPS / Gravity Switch Modes</li>
+                     <li>• Zombie & Patrol AI (NavMesh)</li>
+                     <li>• Weapon System & Ragdoll Physics</li>
+                     <li>• Particles, Camera Shake, Slow-motion</li>
+                  </ul>
+                  <p style="color: #aaa">
+                     Upcoming: Multiplayer (Netcode), More Maps, Story Mode
+                  </p>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section
+         id="contact"
+         style="background: linear-gradient(to top, #0a0015, #150025)"
+      >
+         <h2>📡 Connect With Me</h2>
+         <div class="contact-grid">
+            <div class="contact-item card">
+               <i class="fas fa-map-marker-alt"></i>
+               <h3>Vietnam</h3>
+               <p>Ho Chi Minh City</p>
+            </div>
+            <div class="contact-item card">
+               <i class="fab fa-itch-io"></i>
+               <h3>Itch.io</h3>
+               <a href="https://senseiikuiku.itch.io" target="_blank"
+                  >senseiikuiku.itch.io</a
+               >
+            </div>
+            <div class="contact-item card">
+               <i class="fab fa-github"></i>
+               <h3>GitHub</h3>
+               <p>[Add your GitHub link]</p>
+            </div>
+         </div>
+      </section>
+
+      <footer>
+         <p style="font-size: 1.4rem; margin-bottom: 1rem">
+            🚀 Next Level: Procedural Worlds • Advanced AI • Multiplayer
+            Experiences
+         </p>
+         <p>⭐ Thank you for visiting my portfolio!</p>
+         <p style="margin-top: 3rem; color: #666">
+            © 2026 Doan Minh Duc – Built with passion & neon
+         </p>
+      </footer>
+
+      <script>
+         const particlesContainer = document.getElementById("particles");
+         for (let i = 0; i < 60; i++) {
+            const p = document.createElement("div");
+            p.className = "particle";
+            p.style.width = p.style.height = Math.random() * 4 + "px";
+            p.style.left = Math.random() * 100 + "vw";
+            p.style.animationDelay = Math.random() * 15 + "s";
+            p.style.animationDuration = Math.random() * 20 + 20 + "s";
+            particlesContainer.appendChild(p);
+         }
+      </script>
+   </body>
+</html>
