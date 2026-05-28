@@ -187,6 +187,13 @@ header {
    letter-spacing: clamp(1px, 0.45vw, 3px);
 }
 
+.subtitle-separator {
+   color: var(--neon);
+   margin: 0 10px;
+   font-size: 0.75em;
+   vertical-align: middle;
+}
+
 .cta-btn {
    padding: 16px 40px;
    background: transparent;
@@ -243,6 +250,11 @@ h2 {
    margin-bottom: 4rem;
    color: var(--neon);
    text-shadow: 0 0 20px rgba(0, 255, 234, 0.5);
+}
+
+.section-icon {
+   margin-right: 12px;
+   color: var(--neon);
 }
 
 .card {
@@ -355,6 +367,11 @@ h2 {
    margin: 1.5rem 0 1rem;
 }
 
+.title-icon {
+   margin-right: 10px;
+   color: var(--neon);
+}
+
 .project-links {
    display: flex;
    flex-wrap: wrap;
@@ -378,6 +395,22 @@ h2 {
 .project-link:hover {
    background: rgba(0, 255, 234, 0.18);
    box-shadow: 0 0 16px rgba(0, 255, 234, 0.25);
+}
+
+.link-icon {
+   margin-left: 8px;
+   font-size: 0.85em;
+}
+
+.list-icon {
+   margin-right: 10px;
+   color: var(--neon);
+   font-size: 0.9em;
+}
+
+.footer-icon {
+   margin-right: 8px;
+   color: var(--neon);
 }
 
 .project-link-disabled {
